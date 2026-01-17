@@ -1,5 +1,6 @@
 1. Create a basic react/nextjs application
-2. Implement this function
+2. Connect our wallet, with a nicer connect application
+3. Implement this function
 ```javascript
 function airdropERC20(
     address tokenAddress,
@@ -7,4 +8,5 @@ function airdropERC20(
     uint256[] calldata amounts
     uint256 totalAmount
 )
-3. Deploy to fleek.xyz
+```
+4. Deploy to fleek.xyz
