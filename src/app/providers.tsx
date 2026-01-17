@@ -9,10 +9,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 export const Providers = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(() => new QueryClient());
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={config}>
         <RainbowKitProvider>{children}</RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+      </WagmiProvider>
+    </QueryClientProvider>
   );
 };
