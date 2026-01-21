@@ -4,8 +4,7 @@ import { AirdropForm } from "../AirdropForm"
 import { useConnection } from "wagmi"
 
 export const HomeContent = () => {
-  const { isConnected, status } = useConnection()
-  console.log("isConnected", isConnected)
+  const { status } = useConnection()
 
   return (
     <div>

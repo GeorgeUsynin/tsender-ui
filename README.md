@@ -10,4 +10,6 @@ function airdropERC20(
 )
 ```
 4. e2e testing
+    1. When we connect, we see the form
+    2. When disconnected, we don't
 5. Deploy to fleek.xyz

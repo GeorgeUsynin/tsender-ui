@@ -1,15 +1,19 @@
-import { erc20Abi } from "@/constants"
+import { Dispatch, SetStateAction, useEffect } from "react"
 import { useReadContracts } from "wagmi"
+import { formatUnits } from "viem"
+import { erc20Abi, STATUS } from "@/constants"
 import { Spinner } from "../ui"
 
 type TransactionDetailsProps = {
   tokenAddress: string
   totalAmount: number
+  setIsError: Dispatch<SetStateAction<boolean>>
 }
 
 export const TransactionDetails: React.FC<TransactionDetailsProps> = ({
   tokenAddress,
   totalAmount,
+  setIsError,
 }) => {
   const { data, isLoading } = useReadContracts({
     contracts: [
@@ -26,16 +30,31 @@ export const TransactionDetails: React.FC<TransactionDetailsProps> = ({
     ],
   })
 
-  const name = data?.[0].status === "success" ? (data[0].result as string) : ""
-  const decimals =
-    data?.[1].status === "success" ? (data[1].result as number) : undefined
+  const hasFailure = !!data?.some((res) => res.status === STATUS.FAILURE)
 
-  const amount = totalAmount / Math.pow(10, decimals || 18)
-  const displayAmount = amount > 0.01 ? amount.toFixed(2) : "0.00"
+  useEffect(() => {
+    if (!data) return
 
-  if (isLoading) {
+    setIsError(hasFailure)
+
+    if (hasFailure) {
+      data.forEach((res) => res.error && console.log(res.error))
+    }
+  }, [data, hasFailure])
+
+  if (!data || isLoading) {
     return <Spinner size={24} />
   }
+
+  if (hasFailure) {
+    return <div>Please check the console for errors!</div>
+  }
+
+  const name = data[0].result as string
+  const decimals = data[1].result as number
+  const amount = formatUnits(BigInt(totalAmount), decimals)
+  const displayAmount =
+    Number(amount) > 0.01 ? Number(amount).toFixed(2) : "0.00"
 
   return (
     <div className="mt-6 space-y-3 text-sm border border-solid border-neutral-300 dark:border-neutral-600 rounded-xl p-4">

@@ -19,13 +19,14 @@ export const AirdropForm = () => {
   const [tokenAddress, setTokenAddress] = useState("")
   const [recipients, setRecipients] = useState("")
   const [amounts, setAmounts] = useState("")
+  const [isError, setIsError] = useState(false)
   const chainId = useChainId()
   const config = useConfig()
   const { address: currentAccount } = useConnection()
   const { isPending, mutateAsync } = useWriteContract()
   const totalAmount: number = useMemo(() => calculateTotal(amounts), [amounts])
   const disabled =
-    isPending || !isAddress(tokenAddress) || !recipients || !amounts
+    isPending || !isAddress(tokenAddress) || !recipients || !amounts || isError
 
   useEffect(() => {
     const savedTokenAddress = localStorage.getItem("tokenAddress")
@@ -159,6 +160,7 @@ export const AirdropForm = () => {
         <TransactionDetails
           tokenAddress={tokenAddress}
           totalAmount={totalAmount}
+          setIsError={setIsError}
         />
       )}
     </div>

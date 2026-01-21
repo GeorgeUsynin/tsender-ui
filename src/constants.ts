@@ -844,3 +844,8 @@ export const tSenderAbi = [
     stateMutability: "pure",
   },
 ]
+
+export const STATUS = {
+  SUCCESS: "success",
+  FAILURE: "failure",
+}
