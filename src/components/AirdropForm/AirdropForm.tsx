@@ -11,8 +11,8 @@ import { TransactionDetails } from "./TransactionDetails"
 
 const labels = {
   tokenAddress: "Token address",
-  recipients: "Recipients",
-  amounts: "Amounts",
+  recipients: "Recipients (comma or new line separated)",
+  amounts: "Amounts (wei; comma or new line separated)",
 }
 
 export const AirdropForm = () => {
@@ -128,7 +128,7 @@ export const AirdropForm = () => {
   }
 
   return (
-    <div className="w-full md:w-2/3 max-w-2xl mx-auto flex flex-col gap-4 mt-6">
+    <div className="w-full md:w-2/3 max-w-2xl mx-auto flex flex-col gap-4 mt-6 border border-black dark:border-white rounded-xl p-4">
       <InputField
         label={labels.tokenAddress}
         placeholder="0x"
